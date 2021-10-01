@@ -4,6 +4,7 @@ from django.contrib.gis import forms
 
 class Things(models.Model):
     title = models.CharField(max_length=256)
+    slug = models.SlugField()
     description = models.CharField(max_length=1000)
     #picture = models.ImageField()
     geom = models.PointField()

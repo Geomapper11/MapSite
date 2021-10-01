@@ -8,3 +8,4 @@ class ThingForm(forms.ModelForm):
         model = models.Things
         fields = ['title','description','geom']
 #test
+#change

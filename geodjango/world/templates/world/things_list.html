@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+{% load static %}
+{% load leaflet_tags %}
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    {% leaflet_js %}
+    {% leaflet_css %}
+    <script src="{% static 'leaflet.ajax.js' %}" charset="utf-8"></script>
+    <title>distance calc</title>
+  </head>
+  <body>
+    <script type="text/javascript">
+      function place_pos(map,options){
+        var dataset = L.geoJson.ajax("{% url 'world:the_things' %}",{
+          onEachFeature: function(feature, layer) {
+            layer.bindPopup(feature.properties.title)
+          }
+        });
+        dataset.addTo(map)
+      }
+
+    </script>
+    <h1>distance calculator?</h1>
+    {% for thing in things %}
+    thing title: {{thing.title}} <br>
+    {% endfor %}
+    {% leaflet_map "gis" callback="window.place_pos" %}
+  </body>
+</html>
