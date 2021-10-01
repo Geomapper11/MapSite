@@ -7,5 +7,3 @@ class ThingForm(forms.ModelForm):
     class Meta:
         model = models.Things
         fields = ['title','description','geom']
-#test
-#change
