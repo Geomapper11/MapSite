@@ -1,4 +1,6 @@
 import json
+from django.db.models import Value
+from django.db.models.functions import Replace
 from django.views import generic
 from django.contrib.gis.geos import fromstr, Point
 from django.contrib.gis.db.models.functions import Distance
@@ -6,20 +8,24 @@ from django.http import HttpResponse
 from django.core.serializers import serialize
 from django.urls import path
 from django.shortcuts import render
-from .models import Things
+from .models import Things, PanoImg
 from . import forms
 
 my_location = Point(46.870782, -96.788118,srid=4326)
 
 class Home(generic.ListView):
-    model = Things
-    context_object_name = 'things'
-    queryset = Things.objects.annotate(distance = Distance('geom',my_location)).order_by('distance')[0:6]
-    template_name = 'home.html'
+    model = PanoImg
+    context_object_name = 'panos'
+    template_name = 'world/things_list.html'
 
 def things_dataset(request):
+
     thing = serialize('geojson', Things.objects.all())
     return HttpResponse(thing, content_type='json')
+
+def pic_dataset(request):
+    pic = serialize('geojson', PanoImg.objects.all() )
+    return HttpResponse(pic, content_type='json')
 
 def insert_thing(request):
     if request.method == 'POST':

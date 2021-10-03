@@ -16,6 +16,12 @@ class Things(models.Model):
     def __unicode__(self):
         return self.title
 
+class PanoImg(models.Model):
+    title = models.CharField(max_length=256)
+    description = models.CharField(max_length=1000)
+    picture = models.ImageField(upload_to='static/images/',max_length=1000)
+    geom = models.PointField()
+
 class Blog(models.Model):
     name = models.CharField(max_length=100)
 
