@@ -18,8 +18,11 @@ class Home(generic.ListView):
     context_object_name = 'panos'
     template_name = 'world/things_list.html'
 
-def things_dataset(request):
+def test(request):
+    data = {"hi":"hello"}
+    return render(request,"base.html",context={'data':data})
 
+def things_dataset(request):
     thing = serialize('geojson', Things.objects.all())
     return HttpResponse(thing, content_type='json')
 

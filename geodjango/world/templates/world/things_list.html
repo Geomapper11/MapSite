@@ -17,10 +17,18 @@
         var dataset = L.geoJson.ajax("{% url 'world:pano_imgs' %}",{
           onEachFeature: function(feature, layer) {
             var str = feature.properties.picture.replace("static/","media/static/")
-            layer.bindPopup("<a-scene><a-sky src="+str+"></a-sky></a-scene>")
+            var thumb = str.replace(".jpg","thumb.jpg")
+            layer.bindPopup("<h1>"+feature.properties.title+"</h1><br><a href="+str+" ><img src="+str+"></a>",
+          {
+            maxWidth: "100px",
+            maxHeight: "100px",
+
+        })
           }
         });
         dataset.addTo(map)
+        const value = JSON.parse(document.getElementById('hello-data').textContent)
+        alert(value)
       }
 
 
@@ -32,7 +40,7 @@
     {% for pic in panos %}
     pano title: {{ pic.title }}
     {{pic.picture.url}}<br>
-    {{pic.picture.url|json_script:"pic-url"}}
+    {{ data|json_script:"hello-data"}}
     {% endfor %}
     {% leaflet_map "gis" callback="window.place_pos" %}
   </body>
