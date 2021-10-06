@@ -23,7 +23,7 @@ class PanoImg(models.Model):
 
     def upload(instance, filename):
         ext = filename.split('.')[-1]
-        filename = '{}.{}'.format(instance.id, ext)
+        filename = '{}.{}'.format(filename.split('.')[0], ext)
         path = 'static/images/'
         return '{}{}'.format(path,filename)
 
@@ -35,7 +35,7 @@ class PanoImg(models.Model):
 
     def upload_thumb(instance, filename):
         ext = filename.split('.')[-1]
-        filename = '{}_thumbnail.{}'.format(instance.id, ext)
+        filename = '{}_thumbnail.{}'.format(filename.split('.')[0], ext)
         path = 'static/images/'
         return '{}{}'.format(path, filename)
 
